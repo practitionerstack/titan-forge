@@ -1,0 +1,22 @@
+{
+  "project": "TITAN FORGE",
+  "version": "0.1",
+  "business": "PractitionerStack",
+  "ai_workers": [
+    "Architect",
+    "Builder",
+    "Content",
+    "SEO",
+    "Publisher",
+    "Analytics",
+    "Operations",
+    "CEO"
+  ],
+  "services": {
+    "github": "",
+    "n8n": "",
+    "google_drive": "",
+    "google_sheets": "",
+    "openai": ""
+  }
+}
