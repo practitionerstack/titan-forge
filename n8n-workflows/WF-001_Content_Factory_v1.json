@@ -1,0 +1,291 @@
+{
+  "name": "TITAN_NODE_LIBRARY",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1d93d4cc-a552-4946-82a1-fb3293a3b204",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5.5",
+          "mode": "list",
+          "cachedResultName": "GPT-5.5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "You are TITAN MINI, an AI content generation engine for PractitionerStack.\n\nYour task is to generate SEO-optimized affiliate marketing content.\n\nReturn ONLY valid JSON.\n\nSchema:\n\n{\n  \"title\": \"Compelling SEO title\",\n  \"slug\": \"seo-friendly-url-slug\",\n  \"summary\": \"A concise meta description (120-160 characters)\",\n  \"keywords\": [\n    \"keyword 1\",\n    \"keyword 2\",\n    \"keyword 3\",\n    \"keyword 4\",\n    \"keyword 5\"\n  ],\n  \"article\": \"The complete article in Markdown format\",\n  \"call_to_action\": \"A persuasive affiliate call to action\"\n}\n\nGenerate content for this topic:\n\nAI email marketing tools for small businesses\n\nRequirements:\n- 1200–1500 words\n- SEO optimized\n- Clear H2 and H3 headings\n- Practical and beginner-friendly\n- Balanced comparisons where appropriate\n- No markdown code fences\n- Output ONLY the JSON object"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        176,
+        0
+      ],
+      "id": "0f7858b1-1c0e-447c-b3d6-2204252191fa",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "hSdppSeSO48DxLYO",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "folderId": "1PllM4DH5jOVK-TRemwGNijJ9ON0RRrVz",
+        "title": "={{ $json.title }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        752,
+        0
+      ],
+      "id": "8fc4a4f6-b9e9-4dda-a6ed-edbcf6281e9d",
+      "name": "Create a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "KmMB5YMMrz7rBqdS",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "12aLGL5IrLW-EpsWxQcsrdPHs1hUPOquF5_2Zx7g4ntk",
+          "mode": "list",
+          "cachedResultName": "AI Articles Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12aLGL5IrLW-EpsWxQcsrdPHs1hUPOquF5_2Zx7g4ntk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Articles",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12aLGL5IrLW-EpsWxQcsrdPHs1hUPOquF5_2Zx7g4ntk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{$json.title}}",
+            "Slug": "={{$json.slug}}",
+            "Summary": "={{$json.summary}}",
+            "Keywords": "={{$json.keywords}}",
+            "Created At": "={{$json.created_at}}",
+            "Status": "={{$json.status}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Slug",
+              "displayName": "Slug",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Keywords",
+              "displayName": "Keywords",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Created At",
+              "displayName": "Created At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1008,
+        0
+      ],
+      "id": "ea2327d0-5987-45e0-ad49-25baecd08eab",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ITXoafQQ6YU1s03e",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $('Create a document').item.json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "={{ $json.article }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        832,
+        192
+      ],
+      "id": "2f74d96b-51d7-408b-8f09-c16e157bdfa9",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "KmMB5YMMrz7rBqdS",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.output[0].content[0].text;\n\nconst data = JSON.parse(raw);\n\nreturn [\n  {\n    json: {\n      title: data.title,\n      slug: data.slug,\n      summary: data.summary,\n      article: data.article,\n      keywords: data.keywords.join(\", \"),\n      call_to_action: data.call_to_action,\n      created_at: new Date().toISOString(),\n      status: \"Generated\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        0
+      ],
+      "id": "ff8b7ad2-bb95-4c8b-ad0c-408495e76cd6",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "da5337d1-427b-4484-b427-620d5e273306",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "aa226b6e42b80def605c7f6de7f605808394fec2bd4c12e5adda520109e786f8"
+  },
+  "nodeGroups": [],
+  "id": "rPCDLgUwEuyxGmw1",
+  "tags": []
+}
